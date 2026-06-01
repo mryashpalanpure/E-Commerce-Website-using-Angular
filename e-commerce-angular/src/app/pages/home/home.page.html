@@ -1,0 +1,29 @@
+<main class="hero">
+  <h1>Products</h1>
+
+  @if (isLoading()) {
+  <div id="product-display" class="loading"></div>
+  } @else if (errorMessage()) {
+  <div class="empty-state">
+    <h2>Unable to fetch products</h2>
+    <p>{{ errorMessage() }}</p>
+  </div>
+  } @else if (filteredProducts().length === 0) {
+  <div class="empty-state">
+    <h2>No products found</h2>
+    <p>Try searching with another product name or category.</p>
+  </div>
+  } @else {
+  <div id="product-display">
+    @for (product of filteredProducts(); track product.id) {
+    <article class="product-card">
+      <img [src]="product.thumbnail" [alt]="product.title">
+      <h3>{{ product.title }}</h3>
+      <p>Price: {{ product.price | currency:'INR':'symbol':'1.2-2' }}</p>
+      <p>Category: {{ product.category }}</p>
+      <button type="button" (click)="addToCart(product)">Add To Cart</button>
+    </article>
+    }
+  </div>
+  }
+</main>

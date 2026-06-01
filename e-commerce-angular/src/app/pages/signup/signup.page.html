@@ -1,0 +1,77 @@
+<section class="auth-page">
+  <div class="auth-container">
+    <h2>Sign Up</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="input-group">
+        <label for="name">Username</label>
+        <input type="text" id="name" formControlName="name" placeholder="Enter your Username">
+        <p id="name-para">
+          @if (form.controls.name.touched && form.controls.name.hasError('required')) {
+            Please enter your name.
+          } @else if (form.controls.name.touched && form.controls.name.hasError('pattern')) {
+            Only letters and spaces are allowed.
+          }
+        </p>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" placeholder="Enter your email">
+        <p id="email-para">
+          @if (form.controls.email.touched && form.controls.email.hasError('required')) {
+            Please enter your email.
+          } @else if (form.controls.email.touched && form.controls.email.hasError('email')) {
+            Please enter a valid email address.
+          }
+        </p>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input id="password" class="passwords" [type]="showPassword() ? 'text' : 'password'" formControlName="password" placeholder="Create strong password">
+        <button type="button" class="eye-icon togglePassword" (click)="showPassword.set(!showPassword())" aria-label="Toggle password visibility">
+          @if (showPassword()) {
+            <span>&#128065;</span>
+          } @else {
+            <span>&#128584;</span>
+          }
+        </button>
+        <p id="password-para">
+          @if (form.controls.password.touched && form.controls.password.hasError('required')) {
+            Please enter your password.
+          } @else if (form.controls.password.touched && form.controls.password.hasError('minlength')) {
+            Password must be at least 8 characters.
+          } @else if (form.controls.password.touched && form.controls.password.hasError('pattern')) {
+            Use uppercase, lowercase, number, and special character.
+          }
+        </p>
+      </div>
+
+      <div class="input-group">
+        <label for="confirmPass">Confirm Password</label>
+        <input id="confirmPass" class="passwords" [type]="showConfirmPassword() ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Confirm password">
+        <button type="button" class="eye-icon togglePassword" id="confirmToggle" (click)="showConfirmPassword.set(!showConfirmPassword())" aria-label="Toggle confirm password visibility">
+          @if (showConfirmPassword()) {
+            <span>&#128065;</span>
+          } @else {
+            <span>&#128584;</span>
+          }
+        </button>
+        <p id="confirmpassword-para">
+          @if (form.controls.confirmPassword.touched && form.controls.confirmPassword.hasError('required')) {
+            Please confirm your password.
+          } @else if (form.controls.confirmPassword.touched && form.hasError('passwordsMismatch')) {
+            Passwords do not match.
+          }
+        </p>
+      </div>
+
+      <button type="submit" class="btn">Create Account</button>
+
+      <p class="switch-text">
+        Already have an account? <a routerLink="/login">Login</a>
+      </p>
+    </form>
+  </div>
+</section>

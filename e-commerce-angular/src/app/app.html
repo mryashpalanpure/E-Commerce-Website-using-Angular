@@ -1,0 +1,20 @@
+@if (!hideHeader()) {
+  <header class="app-header">
+    <h1>Welcome</h1>
+
+    @if (currentUser(); as user) {
+      <nav class="nav-links" aria-label="Primary navigation">
+        <button type="button" id="logout" (click)="logout()">Log Out</button>
+      </nav>
+    } @else {
+      <nav class="nav-links" aria-label="Authentication navigation">
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+        <a routerLink="/signup" routerLinkActive="active">Sign Up</a>
+      </nav>
+    }
+  </header>
+}
+
+<main [class.auth-main]="isAuthPage()">
+  <router-outlet />
+</main>

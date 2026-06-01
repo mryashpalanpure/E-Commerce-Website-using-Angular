@@ -1,0 +1,64 @@
+<section class="success-container">
+  @if (orderService.lastOrder(); as order) {
+  <div class="success-card">
+    <div class="icon">✓</div>
+    <h1>Order Placed Successfully!</h1>
+    <p>
+      Thank you for your purchase. Your order has been received.
+    </p>
+    <div class="order-details">
+      <h3>Order Summary</h3>
+      <div class="order-items">
+        @for (item of order.items; track item.id) {
+        <div class="item-row">
+          <span>
+            {{ item.title }} x {{ item.quantity }}
+          </span>
+          <span>
+            {{ item.price * item.quantity | currency:'INR':'symbol':'1.0-0' }}
+          </span>
+        </div>
+        }
+      </div>
+      <hr>
+      <div class="order-info">
+        <p>
+          <strong>Name:</strong>
+          <span>{{ order.customer.name }}</span>
+        </p>
+        <p>
+          <strong>Email:</strong>
+          <span>{{ order.customer.email }}</span>
+        </p>
+        <p>
+          <strong>Phone:</strong>
+          <span>{{ order.customer.phone }}</span>
+        </p>
+        <p>
+          <strong>Address:</strong>
+          <span>{{ order.customer.address }}</span>
+        </p>
+        <h2 class="final-total">
+          Total:
+          {{ order.total | currency:'INR':'symbol':'1.0-0' }}
+        </h2>
+      </div>
+    </div>
+    <div class="success-actions">
+      <a routerLink="/home" class="home-btn">
+        Continue Shopping
+      </a>
+    </div>
+  </div>
+  } @else {
+  <div class="success-card">
+    <h2>No order details found</h2>
+    <p>
+      Place an order first to see the success page.
+    </p>
+    <a routerLink="/home" class="home-btn">
+      Browse Products
+    </a>
+  </div>
+  }
+</section>
