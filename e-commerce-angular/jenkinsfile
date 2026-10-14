@@ -15,7 +15,16 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+       
+    stage('Build Docker Image') {
+        steps {
+            dir('e-commerce-angular') {
+            sh 'docker build -t angular-ecommerce:${BUILD_NUMBER} .'
+        }
+    }
+    
+    }
+    stage('Build Docker Image') {
             steps {
                 sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
             }
