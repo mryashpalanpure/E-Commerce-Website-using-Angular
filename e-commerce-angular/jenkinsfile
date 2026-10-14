@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -15,24 +16,19 @@ pipeline {
             }
         }
 
-       
-    stage('Build Docker Image') {
-        steps {
-            dir('e-commerce-angular') {
-            sh 'docker build -t angular-ecommerce:${BUILD_NUMBER} .'
-        }
-    }
-    
-    }
-    stage('Build Docker Image') {
+        stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
+                dir('e-commerce-angular') {
+                    sh 'docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh 'docker run --rm ${IMAGE_NAME}:${BUILD_NUMBER} npm test -- --watch=false'
+                dir('e-commerce-angular') {
+                    sh 'docker run --rm ${IMAGE_NAME}:${BUILD_NUMBER} npm test -- --watch=false'
+                }
             }
         }
 
