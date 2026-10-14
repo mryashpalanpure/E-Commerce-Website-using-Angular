@@ -6,10 +6,22 @@
 /out-tsc
 /bazel-out
 
-# Node
-/node_modules
-npm-debug.log
+
+# Node dependencies
+node_modules/
+**/node_modules/
+npm-debug.log*
 yarn-error.log
+
+# Angular build output
+dist/
+tmp/
+out-tsc/
+.angular/cache/
+
+# Test coverage
+coverage/
+
 
 # IDEs and editors
 .idea/
