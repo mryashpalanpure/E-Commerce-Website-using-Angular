@@ -1,10 +1,9 @@
-
 pipeline {
-    agent any
+    agent {label 'vinod'}
 
     environment {
-        IMAGE_NAME = 'angular-ecommerce'
-        CONTAINER_NAME = 'angular-ecommerce-app'
+        IMAGE_NAME = 'AngularImage'
+        CONTAINER_NAME = 'AngularApplication'
         APP_PORT = '4200'
     }
 
@@ -28,6 +27,25 @@ pipeline {
             steps {
                 dir('e-commerce-angular') {
                     sh 'docker run --rm ${IMAGE_NAME}:${BUILD_NUMBER} npm test -- --watch=false'
+                    echo 'Image is ready to push to the docker hub'
+                }
+            }
+        }
+
+        stage('Pushed Image to Docker Hub'){
+            steps{
+                withCredentials([
+                    usernamePassword(
+                        credentialsId : 'username'
+                        usernameVariable : 'docker_user'
+                        passwordVariable : 'docker_pass'
+                    )
+                ])
+                {
+                    sh '''
+                        docker login -u usernameVariable -p passwordVariable
+                        docker push $docker_user/${IMAGE_NAME}:${BUILD_NUMBER}
+                    '''
                 }
             }
         }
