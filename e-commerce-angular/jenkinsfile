@@ -43,7 +43,7 @@ pipeline {
                 ])
                 {
                     sh '''
-                        docker login -u usernameVariable -p passwordVariable
+                        docker login -u ${usernameVariable} --password-stdin ${passwordVariable}
                         docker push $docker_user/${IMAGE_NAME}:${BUILD_NUMBER}
                     '''
                 }
