@@ -2,8 +2,8 @@ pipeline {
     agent {label 'vinod'}
 
     environment {
-        IMAGE_NAME = 'angularimage'
-        CONTAINER_NAME = 'angularapplication'
+        IMAGE_NAME = 'angularimagevinod'
+        CONTAINER_NAME = 'angularapplicationvinod'
         APP_PORT = '4200'
     }
 
